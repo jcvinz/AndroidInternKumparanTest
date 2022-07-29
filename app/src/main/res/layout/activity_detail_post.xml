@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".ui.detailpost.DetailPostActivity">
 
+    <include
+        android:id="@+id/custom_action_bar"
+        layout="@layout/action_bar_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/post_card"
         android:layout_width="match_parent"
@@ -13,7 +20,7 @@
         android:layout_margin="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/custom_action_bar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,6 +32,7 @@
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/tosca"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 tools:text="Ini contoh post-title" />
@@ -34,6 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:textColor="@color/red_to_orange"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 tools:text="Calvin" />

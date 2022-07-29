@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.calvin.internkumparantest.R
 import com.calvin.internkumparantest.data.Resource
 import com.calvin.internkumparantest.databinding.ActivityDetailPostBinding
 import com.calvin.internkumparantest.ui.CommentAdapter
@@ -30,6 +31,8 @@ class DetailPostActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
         detailViewModel = obtainViewModel(this)
+
+        binding.customActionBar.tvTitleAction.text = getString(R.string.comments)
 
         idPost = intent.getIntExtra(ID_POST, 0)
         titlePost = intent.getStringExtra(TITLE_POST).toString()

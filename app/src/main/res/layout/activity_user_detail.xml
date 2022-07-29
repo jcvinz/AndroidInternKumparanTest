@@ -8,25 +8,34 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/custom_action_bar"
+            layout="@layout/action_bar_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/nama"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/name"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/custom_action_bar" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Email"
+            android:text="@string/email"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,8 +45,9 @@
             android:id="@+id/address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Address"
+            android:text="@string/address"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,8 +57,9 @@
             android:id="@+id/company"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Company"
+            android:text="@string/company"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -58,10 +69,11 @@
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@id/guideline2"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Calvin"/>
+            app:layout_constraintTop_toBottomOf="@id/custom_action_bar"
+            tools:text="Calvin" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_email"
@@ -70,7 +82,7 @@
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@id/guideline2"
             app:layout_constraintTop_toTopOf="@id/email"
-            tools:text="test@dummy.com"/>
+            tools:text="test@dummy.com" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_address"
@@ -79,7 +91,7 @@
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@id/guideline2"
             app:layout_constraintTop_toTopOf="@id/address"
-            tools:text="Jawa Barat Indonesia"/>
+            tools:text="Jawa Barat Indonesia" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_company"
@@ -88,13 +100,13 @@
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@id/guideline2"
             app:layout_constraintTop_toTopOf="@id/company"
-            tools:text="Kumparan"/>
+            tools:text="Kumparan" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_album"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_margin="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

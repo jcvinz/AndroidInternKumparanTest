@@ -12,5 +12,5 @@
         android:id="@+id/iv_thumbnail"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        tools:src="@tools:sample/avatars"/>
+        tools:src="@tools:sample/avatars" />
 </com.google.android.material.card.MaterialCardView>

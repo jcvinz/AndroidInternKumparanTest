@@ -12,7 +12,6 @@ class AlbumAdapter(
 ) :
     RecyclerView.Adapter<AlbumAdapter.ListViewHolder>() {
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val binding =
             AlbumItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)

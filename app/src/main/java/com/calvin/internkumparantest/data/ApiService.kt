@@ -19,4 +19,7 @@ interface ApiService {
 
     @GET("photos")
     suspend fun getPhotos(@Query("albumId") albumId: Int): Response<List<PhotoResponseItem>>
+
+    @GET("users")
+    suspend fun getUserDetail(@Query("userId") userId: Int): Response<List<UserResponseItem>>
 }

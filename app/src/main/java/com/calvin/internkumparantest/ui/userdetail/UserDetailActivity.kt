@@ -1,20 +1,26 @@
 package com.calvin.internkumparantest.ui.userdetail
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.calvin.internkumparantest.R
+import com.calvin.internkumparantest.data.PhotoResponseItem
 import com.calvin.internkumparantest.data.Resource
 import com.calvin.internkumparantest.databinding.ActivityUserDetailBinding
 import com.calvin.internkumparantest.ui.AlbumAdapter
 import com.calvin.internkumparantest.ui.CustomLoadingDialog
 import com.calvin.internkumparantest.ui.PhotoAdapter
 import com.calvin.internkumparantest.ui.ViewModelFactory
+import com.calvin.internkumparantest.ui.photodetail.PhotoDetailActivity
 
-class UserDetailActivity : AppCompatActivity(), AlbumAdapter.AlbumCallback {
+class UserDetailActivity : AppCompatActivity(), AlbumAdapter.AlbumCallback,
+    PhotoAdapter.PhotoCallback {
     private lateinit var binding: ActivityUserDetailBinding
     private lateinit var loading: CustomLoadingDialog
     private lateinit var userDetailViewModel: UserDetailViewModel
@@ -26,16 +32,39 @@ class UserDetailActivity : AppCompatActivity(), AlbumAdapter.AlbumCallback {
         setContentView(binding.root)
         supportActionBar?.hide()
 
+        binding.customActionBar.tvTitleAction.text = getString(R.string.user_detail)
+
         userDetailViewModel = obtainViewModel(this)
         loading = CustomLoadingDialog(this)
 
         userId = intent.getIntExtra(USER_ID, 0)
 
-        userDetailViewModel.getAlbums(userId)
+        userDetailViewModel.getUserDetail(userId)
 
         val layoutManager = LinearLayoutManager(this)
         binding.rvAlbum.layoutManager = layoutManager
         binding.rvAlbum.setHasFixedSize(true)
+
+        userDetailViewModel.user.observe(this) {
+            when (it) {
+                is Resource.Loading -> {
+                    renderLoading(it.state)
+                }
+                is Resource.Success -> {
+                    binding.apply {
+                        tvName.text = it.data[0].name
+                        tvEmail.text = it.data[0].email
+                        tvAddress.text =
+                            it.data[0].address.street.plus(" ${it.data[0].address.city}")
+                        tvCompany.text = it.data[0].company.name
+                    }
+                    userDetailViewModel.getAlbums(userId)
+                }
+                is Resource.Error -> {
+                    renderToast(it.message, this)
+                }
+            }
+        }
 
         userDetailViewModel.albums.observe(this) {
             when (it) {
@@ -65,17 +94,25 @@ class UserDetailActivity : AppCompatActivity(), AlbumAdapter.AlbumCallback {
         userDetailViewModel.photos.observe(this) {
             when (it) {
                 is Resource.Loading -> {
-
+                    renderLoading(it.state)
                 }
                 is Resource.Success -> {
-                    val adapter = PhotoAdapter(it.data)
+                    val adapter = PhotoAdapter(it.data, this)
                     rv.adapter = adapter
+                    renderLoading(false)
                 }
                 is Resource.Error -> {
                     renderToast(it.message, this)
                 }
             }
         }
+    }
+
+    override fun onPhotoClick(photoItem: PhotoResponseItem) {
+        val photoDetailIntent = Intent(this, PhotoDetailActivity::class.java)
+        photoDetailIntent.putExtra(PhotoDetailActivity.PHOTO_TITLE, photoItem.title)
+        photoDetailIntent.putExtra(PhotoDetailActivity.PHOTO_URL, photoItem.url)
+        startActivity(photoDetailIntent)
     }
 
     private fun obtainViewModel(activity: AppCompatActivity): UserDetailViewModel {

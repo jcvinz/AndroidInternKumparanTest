@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.calvin.internkumparantest.R
 import com.calvin.internkumparantest.data.PostResponseItem
 import com.calvin.internkumparantest.data.Resource
 import com.calvin.internkumparantest.data.UserResponseItem
@@ -21,14 +22,16 @@ class ListPostActivity : AppCompatActivity(), ListPostAdapter.PostCallback {
     private lateinit var listPostViewModel: ListPostViewModel
     private lateinit var loading: CustomLoadingDialog
 
-    private lateinit var tempListPost: List<PostResponseItem>
-    private lateinit var tempListUser: List<UserResponseItem>
+    private var tempListPost: List<PostResponseItem>? = null
+    private var tempListUser: List<UserResponseItem>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityListPostBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
+
+        binding.customActionBar.tvTitleAction.text = getString(R.string.home)
 
         listPostViewModel = obtainViewModel(this)
         loading = CustomLoadingDialog(this)
@@ -46,8 +49,10 @@ class ListPostActivity : AppCompatActivity(), ListPostAdapter.PostCallback {
                 }
                 is Resource.Success -> {
                     tempListUser = it.data
-                    val adapter = ListPostAdapter(tempListPost, tempListUser, this)
-                    binding.rvPost.adapter = adapter
+                    if (tempListPost != null && tempListUser != null) {
+                        val adapter = ListPostAdapter(tempListPost!!, tempListUser!!, this)
+                        binding.rvPost.adapter = adapter
+                    }
                     renderLoading(false)
                 }
                 is Resource.Error -> {

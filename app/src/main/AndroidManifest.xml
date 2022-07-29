@@ -16,6 +16,9 @@
         android:theme="@style/Theme.InternKumparanTest"
         tools:targetApi="31">
         <activity
+            android:name=".ui.photodetail.PhotoDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.userdetail.UserDetailActivity"
             android:exported="false" />
         <activity

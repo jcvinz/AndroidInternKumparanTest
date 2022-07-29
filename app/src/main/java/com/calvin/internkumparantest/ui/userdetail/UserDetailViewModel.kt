@@ -8,9 +8,14 @@ import androidx.lifecycle.viewModelScope
 import com.calvin.internkumparantest.data.AlbumResponseItem
 import com.calvin.internkumparantest.data.PhotoResponseItem
 import com.calvin.internkumparantest.data.Resource
+import com.calvin.internkumparantest.data.UserResponseItem
 import kotlinx.coroutines.launch
 
 class UserDetailViewModel(private val dataRepository: DataRepository) : ViewModel() {
+    private val _user = MutableLiveData<Resource<List<UserResponseItem>>>()
+    val user: LiveData<Resource<List<UserResponseItem>>>
+        get() = _user
+
     private val _albums = MutableLiveData<Resource<List<AlbumResponseItem>>>()
     val albums: LiveData<Resource<List<AlbumResponseItem>>>
         get() = _albums
@@ -47,6 +52,22 @@ class UserDetailViewModel(private val dataRepository: DataRepository) : ViewMode
                 }
             } catch (e: Exception) {
                 _photos.postValue(Resource.Error(e.message.toString()))
+            }
+        }
+    }
+
+    fun getUserDetail(userId: Int) {
+        _user.postValue(Resource.Loading(true))
+        viewModelScope.launch {
+            try {
+                val response = dataRepository.getUserDetail(userId)
+                if(response.isSuccessful) {
+                    _user.postValue(Resource.Success(response.body()!!))
+                } else {
+                    _user.postValue(Resource.Error("Something Went Wrong"))
+                }
+            } catch (e: Exception) {
+                _user.postValue(Resource.Error(e.message.toString()))
             }
         }
     }

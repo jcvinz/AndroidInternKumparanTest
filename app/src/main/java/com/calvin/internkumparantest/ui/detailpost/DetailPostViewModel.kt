@@ -20,7 +20,7 @@ class DetailPostViewModel(private val dataRepository: DataRepository) : ViewMode
         viewModelScope.launch {
             try {
                 val response = dataRepository.getComments(postId)
-                if(response.isSuccessful) {
+                if (response.isSuccessful) {
                     _comments.postValue(Resource.Success(response.body()!!))
                 } else {
                     _comments.postValue(Resource.Error("Something Went Wrong"))
