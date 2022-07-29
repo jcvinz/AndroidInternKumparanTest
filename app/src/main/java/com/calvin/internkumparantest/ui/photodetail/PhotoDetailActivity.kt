@@ -1,8 +1,7 @@
 package com.calvin.internkumparantest.ui.photodetail
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.calvin.internkumparantest.R
 import com.calvin.internkumparantest.databinding.ActivityPhotoDetailBinding

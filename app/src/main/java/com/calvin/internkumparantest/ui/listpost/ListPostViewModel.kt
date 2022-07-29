@@ -5,7 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.calvin.internkumparantest.data.*
+import com.calvin.internkumparantest.data.PostResponseItem
+import com.calvin.internkumparantest.data.Resource
+import com.calvin.internkumparantest.data.UserResponseItem
 import kotlinx.coroutines.launch
 
 class ListPostViewModel(private val dataRepository: DataRepository) : ViewModel() {
