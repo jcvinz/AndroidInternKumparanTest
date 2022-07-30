@@ -3,6 +3,7 @@ package com.calvin.internkumparantest.ui.listpost
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -69,9 +70,20 @@ class ListPostActivity : AppCompatActivity(), ListPostAdapter.PostCallback {
                 is Resource.Success -> {
                     listPostViewModel.getAllUser()
                     tempListPost = it.data
+
+                    if (binding.warningLayout.root.visibility == View.VISIBLE && binding.rvPost.visibility == View.INVISIBLE) {
+                        binding.warningLayout.root.visibility = View.GONE
+                        binding.rvPost.visibility = View.VISIBLE
+                    }
                 }
                 is Resource.Error -> {
                     renderToast(it.message, this)
+                    binding.warningLayout.root.visibility = View.VISIBLE
+                    binding.rvPost.visibility = View.INVISIBLE
+                    renderLoading(false)
+                    binding.warningLayout.btnRetry.setOnClickListener {
+                        listPostViewModel.getAllPost()
+                    }
                 }
             }
         }

@@ -3,6 +3,7 @@ package com.calvin.internkumparantest.ui.userdetail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -61,6 +62,8 @@ class UserDetailActivity : AppCompatActivity(), AlbumAdapter.AlbumCallback,
                 }
                 is Resource.Error -> {
                     renderToast(it.message, this)
+                    renderLoading(false)
+                    finish()
                 }
             }
         }

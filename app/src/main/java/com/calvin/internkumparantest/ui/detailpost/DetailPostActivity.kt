@@ -65,10 +65,20 @@ class DetailPostActivity : AppCompatActivity() {
                 is Resource.Success -> {
                     val adapter = CommentAdapter(it.data)
                     binding.rvComments.adapter = adapter
+                    if (binding.warningLayout.root.visibility == View.VISIBLE && binding.rvComments.visibility == View.INVISIBLE) {
+                        binding.warningLayout.root.visibility = View.GONE
+                        binding.rvComments.visibility = View.VISIBLE
+                    }
                     renderLoading(false)
                 }
                 is Resource.Error -> {
                     renderToast(it.message, this)
+                    binding.warningLayout.root.visibility = View.VISIBLE
+                    binding.rvComments.visibility = View.INVISIBLE
+                    renderLoading(false)
+                    binding.warningLayout.btnRetry.setOnClickListener {
+                        detailViewModel.getComments(idPost)
+                    }
                 }
             }
         }
