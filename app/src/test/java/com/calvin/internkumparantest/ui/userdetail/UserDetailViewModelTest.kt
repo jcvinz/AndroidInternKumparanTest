@@ -3,10 +3,8 @@ package com.calvin.internkumparantest.ui.userdetail
 import DataRepository
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.calvin.internkumparantest.ui.MainCoroutineRule
-import com.calvin.internkumparantest.ui.listpost.ListPostViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
