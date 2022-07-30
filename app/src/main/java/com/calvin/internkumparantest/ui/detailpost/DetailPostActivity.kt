@@ -38,7 +38,7 @@ class DetailPostActivity : AppCompatActivity() {
         titlePost = intent.getStringExtra(TITLE_POST).toString()
         bodyPost = intent.getStringExtra(BODY_POST).toString()
         userName = intent.getStringExtra(USER_NAME).toString()
-        userId = intent.getIntExtra(ID_POST, 0)
+        userId = intent.getIntExtra(USER_ID, 0)
 
         binding.apply {
             tvTitle.text = titlePost
@@ -47,7 +47,7 @@ class DetailPostActivity : AppCompatActivity() {
 
             tvName.setOnClickListener {
                 val userDetailIntent = Intent(it.context, UserDetailActivity::class.java)
-                userDetailIntent.putExtra(UserDetailActivity.USER_ID, userId)
+                userDetailIntent.putExtra(UserDetailActivity.USER_ID_DETAIL, userId)
                 startActivity(userDetailIntent)
             }
         }

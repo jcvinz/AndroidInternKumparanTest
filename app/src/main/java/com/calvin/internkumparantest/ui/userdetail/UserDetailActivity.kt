@@ -36,7 +36,7 @@ class UserDetailActivity : AppCompatActivity(), AlbumAdapter.AlbumCallback,
         userDetailViewModel = obtainViewModel(this)
         loading = CustomLoadingDialog(this)
 
-        userId = intent.getIntExtra(USER_ID, 0)
+        userId = intent.getIntExtra(USER_ID_DETAIL,0)
 
         userDetailViewModel.getUserDetail(userId)
 
@@ -135,6 +135,6 @@ class UserDetailActivity : AppCompatActivity(), AlbumAdapter.AlbumCallback,
     }
 
     companion object {
-        const val USER_ID = "user_id"
+        const val USER_ID_DETAIL = "user_id_detail"
     }
 }
